@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: pink;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+  <script src="/index.js"></script>
+  <script>
+    let box = document.querySelector('.box')
+    
+    let upload = new YlUpload({
+      el: box,
+      multiple: true,
+      url: 'https://jsonplaceholder.typicode.com/posts/'
+    })
+
+    upload
+      .on('choose', (files) => {
+        console.log('choose', files)
+      })
+      .on('change', (files) => {
+        console.log('change', files)
+      })
+      .on('progress', (e) => {
+        console.log(e)
+      })
+      .on('success', (res) => {
+        console.log(res)
+      })
+      .on('error', (err) => {
+        console.log(err)
+      })
+      .on('exceed', (files) => {
+        // 超出限制
+        console.log(files)
+      })
+
+    box.addEventListener('click', function() {
+      upload.chooseFile()
+    }, false)
+  </script>
+</body>
+</html>
